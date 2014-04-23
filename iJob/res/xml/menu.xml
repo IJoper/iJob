@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <Preference
+        android:key="a"
+        android:title="@string/menu_mainscene"
+        />
+
+    <Preference
+        android:key="b"
+        android:title="@string/menu_message"
+        />
+
+    <Preference
+        android:key="c"
+        android:title="@string/menu_focus"
+        />
+    
+    <Preference
+        android:key="d"
+        android:title="@string/menu_server"
+        />
+    
+    <Preference
+        android:key="e"
+        android:title="@string/menu_version"
+        />
+    
+    <Preference
+        android:key="f"
+        android:title="@string/menu_request"
+        />
+    
+    <Preference
+        android:key="g"
+        android:title="@string/menu_exit"
+        />
+</PreferenceScreen>
+   
+ 
