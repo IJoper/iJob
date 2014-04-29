@@ -28,6 +28,10 @@ public class Follow extends Application {
 		}
 		
 	}
+	/**
+	 * 选择关注城市
+	 * @return
+	 */
 	public ArrayList<String> getCityChoices(){
 		
 		return cityChoicesList;
