@@ -18,13 +18,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.ijob.MainActivity;
+import com.example.ijob.JobDetails;
 import com.example.ijob.R;
+import com.ijob.db.DBHelper;
+import com.ijob.db.Infor_item;
 import com.ijob.listview.XListView;
 import com.ijob.listview.XListView.IXListViewListener;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,21 +40,28 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SimpleAdapter;
 
+
 public class MainFragment extends Fragment implements IXListViewListener{
 	private Handler mHandler;
 	private int start = 111;
 	private SimpleAdapter xlistItemAdapter;
-	private List<Map<String, Object>> mDataList = new ArrayList<Map<String, Object>>();
+	private List<Map<String, Object>> mDataList;
 	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	private String URL = "http://1.iters.sinaapp.com/messages/getMessageById/";
 	private XListView mListView;
+	private DBHelper myDbHelper;
+	private EditText editText;
+	private Button searchButton;
+	private Button moreButton;
+	
 	public MainFragment() {
 	}
-
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setRetainInstance(true);
+		
 	}
 
 	@Override
@@ -61,44 +69,59 @@ public class MainFragment extends Fragment implements IXListViewListener{
 			Bundle savedInstanceState) {
 		// inflater the layout
 		View view = inflater.inflate(R.layout.main_listview, null);
+		editText = (EditText)view.findViewById(R.id.mainscene_input);
+		searchButton = (Button)view.findViewById(R.id.mainscene_search);
+		moreButton = (Button)view.findViewById(R.id.mainscene_add);
 		mListView = (XListView) view.findViewById(R.id.main_xListView1);
-		Button searchButton = (Button) view.findViewById(R.id.main_search);
-		Button chooseButton = (Button) view.findViewById(R.id.main_choose);
-		EditText editText = (EditText)view.findViewById(R.id.main_editText1);
 		
-		for (int i = 5; i > 0; i--) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("company", "中山大学" + i);
-			map.put("peoplefocus", "关注人数");
-			map.put("job", "工作岗位");
-			map.put("workplace", "工作地点");
-			map.put("id", ""+i);
-			map.put("detail", "no more details!");
-			mDataList.add(0,map);
+		editText.setFocusable(false);
+		editText.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO 自动生成的方法存根
+				editText.setFocusable(true);
+			}
+		});
+		
+		myDbHelper = new DBHelper(view.getContext());
+		mDataList = myDbHelper.getMainListViewAllItem();
+		
+		
+		if (mDataList == null) {
+			mDataList = new ArrayList<Map<String, Object>>();
 		}
+		if (mDataList.size() > 0) {
+			start = Integer.parseInt(mDataList.get(0).get("id").toString())+1;
+		}
+		Log.i("start", ""+start);
+		Button searchButton = (Button) view.findViewById(R.id.mainscene_search);
+		Button chooseButton = (Button) view.findViewById(R.id.mainscene_add);
+		EditText editText = (EditText) view.findViewById(R.id.mainscene_input);
+		
 		mListView.setPullLoadEnable(true);
+		
 		xlistItemAdapter = new SimpleAdapter(view.getContext(), mDataList,
-				R.layout.list_item, new String[] { "company", "peoplefocus",
-						"job", "workplace" }, new int[] { R.id.company,
+				R.layout.list_item, new String[] { "message_title", "peoplefocus",
+						"company", "location" }, new int[] { R.id.company,
 						R.id.peoplefocus, R.id.job, R.id.workplace });
 		mListView.setAdapter(xlistItemAdapter);
 		mListView.setXListViewListener(this);
 		mHandler = new Handler();
-		
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO 自动生成的方法存根
-				int job_id;
-				job_id = Integer.parseInt(mDataList.get(position).get("id").toString());
-				
-				FragmentManager fragmentManager = ((MainActivity)getActivity()).getFragmentManager();
-				JobDetailFragment contentFragment = (JobDetailFragment)fragmentManager.findFragmentByTag("J");
-	            fragmentManager.beginTransaction()
-	            .replace(R.id.content, contentFragment == null ? new JobDetailFragment(job_id):contentFragment,"J")
-	            .commit();
+				String job_id;
+				job_id = mDataList.get(position-1).get("id").toString();
+				Log.i("job index", job_id+" "+position);
+				Bundle bundle = new Bundle();
+				bundle.putString("job_id", job_id);
+				Intent intent = new Intent(getActivity(), JobDetails.class);
+				intent.putExtras(bundle);
+				startActivity(intent);
 			}
 		});
 
@@ -138,8 +161,16 @@ public class MainFragment extends Fragment implements IXListViewListener{
 			@Override
 			public void run() {
 				DownloadRunnable runnable = new DownloadRunnable();
-				new Thread(runnable).start();//获取新信息
-				
+				Thread thread = new Thread(runnable);//获取新信息
+				thread.start();
+				synchronized(thread){
+					try {
+						thread.wait(2000);;
+					} catch (InterruptedException e) {
+						// TODO 自动生成的 catch 块
+						e.printStackTrace();
+					}
+				}
 				xlistItemAdapter.notifyDataSetChanged();
 				onLoad();
 			}
@@ -161,10 +192,10 @@ public class MainFragment extends Fragment implements IXListViewListener{
 		String uri = URL + start + ".json";
 		String result = "";
 		HttpGet httpGet = new HttpGet(uri);// 将参数在地址中传递
-		Log.i("URL = ", uri);
+//		Log.i("URL = ", uri);
 		try {
 			HttpResponse response = new DefaultHttpClient().execute(httpGet);
-			//Log.i("response state = ", ""+ response.getStatusLine().getStatusCode());
+//			Log.i("response state = ", ""+ response.getStatusLine().getStatusCode());
 			if (response.getStatusLine().getStatusCode() == 200) {
 				StringBuffer buffer = new StringBuffer();
 				BufferedReader bufferedReader = new BufferedReader(new 
@@ -182,7 +213,7 @@ public class MainFragment extends Fragment implements IXListViewListener{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Log.i("result", result);
+//		Log.i("result", result);
 		return result;
 	}
 
@@ -192,18 +223,22 @@ public class MainFragment extends Fragment implements IXListViewListener{
 		public void run() {
 			// TODO Auto-generated method stub
 			String httpresponse = new String();
-			httpresponse = HTTPGetInfo();
-			try {
-				JSONparser(httpresponse);
-			} catch (JSONException e) {
-				// TODO 自动生成的 catch 块
-				e.printStackTrace();
+			for (int i = 0; i < 10; i++) {
+				httpresponse = HTTPGetInfo();
+				try {
+					JSONparser(httpresponse);
+				} catch (JSONException e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				}
+				
 			}
 		}
 
+		
 		public void JSONparser(String result) throws JSONException {
-			if (result.length() > 100) {
-				Log.i("1_mdatalistlength", ""+mDataList.size());
+			if (result.length() > 200) {
+//				Log.i("1_mdatalistlength", ""+mDataList.size());
 				JSONObject jsonObject = new JSONObject(result);
 				JSONArray jsonArray = jsonObject.getJSONArray("job"); 
 				Map<String, Object> map = new HashMap<String, Object>();
@@ -211,22 +246,29 @@ public class MainFragment extends Fragment implements IXListViewListener{
 				map.put("message_title", jsonObject.getString("message_title"));//信息标题
 				map.put("company", jsonObject.getString("company"));//公司
 				map.put("location", jsonObject.getString("location"));//公司地点
+				
 				int i;
+				String string = new String();
 				for (i = 0; i < jsonArray.length(); i++) {
 					JSONObject jsonObject2 = (JSONObject)jsonArray.opt(i);
-					map.put("job_id"+i, jsonObject2.getString("jid"));//岗位ID
-					map.put("job_type"+i, jsonObject2.getString("type_id"));//实习，兼职，全职
-					map.put("workplace"+i, jsonObject2.getString("job_area"));//工作地点
-					map.put("job_responsibilities"+i, jsonObject2.getString("job_responsibilities"));//工作岗位描述
-					map.put("job_requirements"+i, jsonObject2.getString("job_requirements"));//工作技能需求
+					if (i == jsonArray.length() - 1) {
+						string += jsonObject2.getString("type_id");
+					}else {
+						string += jsonObject2.getString("type_id")+"/";
+					}
+//					map.put("job_id"+i, jsonObject2.getString("jid"));//岗位ID
+//					map.put("job_type"+i, jsonObject2.getString("type_id"));//实习，兼职，全职
+//					map.put("job_area"+i, jsonObject2.getString("job_area"));//工作地点
+//					map.put("job_responsibilities"+i, jsonObject2.getString("job_responsibilities"));//工作岗位描述
+//					map.put("job_requirements"+i, jsonObject2.getString("job_requirements"));//工作技能需求
 				}
-				map.put("job_count", i);
+				map.put("job_type", string);
+				map.put("job_count", jsonArray.length());
 				mDataList.add(0,map);
-				Log.i("2_mdatalistlength", ""+mDataList.size());
+				myDbHelper.addMainListViewByItem(new Infor_item(Integer.parseInt(jsonObject.getString("id")), jsonObject.getString("message_title"),
+						jsonObject.getString("company"), string, jsonObject.getString("location"),"5000-8000", "2014-04-02", "2014-04-06"));
+//				Log.i("2_mdatalistlength", ""+mDataList.size());
 				start ++;
-			}
-			if (result == null) {
-				Log.i("下载的JSON文件", "空的");
 			}
 		}
 	}

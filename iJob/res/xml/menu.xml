@@ -10,31 +10,26 @@
 
     <Preference
         android:key="b"
-        android:title="@string/menu_message"
-        />
-
-    <Preference
-        android:key="c"
-        android:title="@string/menu_focus"
+        android:title="@string/menu_personal"
         />
     
     <Preference
-        android:key="d"
+        android:key="c"
         android:title="@string/menu_server"
         />
     
     <Preference
-        android:key="e"
+        android:key="d"
         android:title="@string/menu_version"
         />
     
     <Preference
-        android:key="f"
+        android:key="e"
         android:title="@string/menu_request"
         />
     
     <Preference
-        android:key="g"
+        android:key="f"
         android:title="@string/menu_exit"
         />
 </PreferenceScreen>

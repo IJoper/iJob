@@ -7,9 +7,11 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="19" />
-    
-	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
-	<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
+
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" >
+    </uses-permission>
 
     <application
         android:allowBackup="true"
@@ -25,6 +27,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <activity 
+            android:name="com.example.ijob.JobDetails">
+        </activity>
+        <activity 
+            android:name="com.example.ijob.MyCollection">
+        </activity>
+        <activity 
+            android:name="com.example.ijob.MyProfile">
+        </activity>
+        <activity 
+            android:name="com.example.ijob.MyFocus">
+        </activity>
+      
     </application>
 
 </manifest>

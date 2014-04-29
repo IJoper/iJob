@@ -1,16 +1,22 @@
 package com.ijob.fragment;
 
+import org.w3c.dom.Text;
+
 import com.example.ijob.MainActivity;
 import com.example.ijob.R;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
 
 /**
- * menu fragment 锛屼富瑕佹槸鐢ㄤ簬鏄剧ずmenu鑿滃崟
+ * menu fragment
  * @author <a href="mailto:kris@krislq.com">Kris.lee</a>
  * @since Mar 12, 2013
  * @version 1.0.0
@@ -25,13 +31,12 @@ public class MenuFragment extends PreferenceFragment implements OnPreferenceClic
         //set the preference xml to the content view
         addPreferencesFromResource(R.xml.menu);
         //add listener
-        findPreference("a").setOnPreferenceClickListener(this);
-        findPreference("b").setOnPreferenceClickListener(this);
-        findPreference("c").setOnPreferenceClickListener(this);
-        findPreference("d").setOnPreferenceClickListener(this);
-        findPreference("e").setOnPreferenceClickListener(this);
-        findPreference("f").setOnPreferenceClickListener(this);
-        findPreference("g").setOnPreferenceClickListener(this);
+        findPreference("a").setOnPreferenceClickListener(this);//main scene
+        findPreference("b").setOnPreferenceClickListener(this);//personal area
+        findPreference("c").setOnPreferenceClickListener(this);//help server
+        findPreference("d").setOnPreferenceClickListener(this);//version update
+        findPreference("e").setOnPreferenceClickListener(this);//request
+        findPreference("f").setOnPreferenceClickListener(this);//exit
     }
 
     @Override
@@ -58,23 +63,11 @@ public class MenuFragment extends PreferenceFragment implements OnPreferenceClic
             }
             index = 2;
             FragmentManager fragmentManager = ((MainActivity)getActivity()).getFragmentManager();
-            MenuFragment contentFragment = (MenuFragment)fragmentManager.findFragmentByTag("B");
+            Personal contentFragment = (Personal)fragmentManager.findFragmentByTag("B");
             fragmentManager.beginTransaction()
-            .replace(R.id.content, contentFragment == null ? new MenuFragment():contentFragment,"B")
+            .replace(R.id.content, contentFragment == null ? new Personal():contentFragment,"B")
             .commit();
-        }else if("c".equals(key)) {
-
-            if(index == 3) {
-                ((MainActivity)getActivity()).getSlidingMenu().toggle();
-                return true;
-            }
-            index = 3;
-            FragmentManager fragmentManager = ((MainActivity)getActivity()).getFragmentManager();
-            FocusFragment contentFragment = (FocusFragment)fragmentManager.findFragmentByTag("C");
-            fragmentManager.beginTransaction()
-            .replace(R.id.content, contentFragment == null ? new FocusFragment():contentFragment,"C")
-            .commit();
-        }else if ("d".equals(key)) {
+        }else if ("c".equals(key)) {
 			if (index == 4) {
 				((MainActivity)getActivity()).getSlidingMenu().toggle();
                 return true;
@@ -85,7 +78,7 @@ public class MenuFragment extends PreferenceFragment implements OnPreferenceClic
             fragmentManager.beginTransaction()
             .replace(R.id.content, contentFragment == null ? new HelpServerFragment():contentFragment,"D")
             .commit();
-		}else if ("e".equals(key)) {
+		}else if ("d".equals(key)) {
 			if (index == 5) {
 				((MainActivity)getActivity()).getSlidingMenu().toggle();
                 return true;
@@ -96,7 +89,7 @@ public class MenuFragment extends PreferenceFragment implements OnPreferenceClic
             fragmentManager.beginTransaction()
             .replace(R.id.content, contentFragment == null ? new VersionFragment():contentFragment,"E")
             .commit();
-		}else if ("f".equals(key)) {
+		}else if ("e".equals(key)) {
 			if (index == 6) {
 				((MainActivity)getActivity()).getSlidingMenu().toggle();
                 return true;
@@ -107,17 +100,29 @@ public class MenuFragment extends PreferenceFragment implements OnPreferenceClic
             fragmentManager.beginTransaction()
             .replace(R.id.content, contentFragment == null ? new QuestFragment():contentFragment,"F")
             .commit();
-		}else if ("g".equals(key)) {
-			if (index == 7) {
-				((MainActivity)getActivity()).getSlidingMenu().toggle();
-                return true;
-			}
-			index = 7;
-            FragmentManager fragmentManager = ((MainActivity)getActivity()).getFragmentManager();
-            ExitFragment contentFragment = (ExitFragment)fragmentManager.findFragmentByTag("G");
-            fragmentManager.beginTransaction()
-            .replace(R.id.content, contentFragment == null ? new ExitFragment():contentFragment,"G")
-            .commit();
+		}else if ("f".equals(key)) {
+			AlertDialog.Builder builder = new AlertDialog.Builder((MainActivity)getActivity());
+			builder.setMessage(getString(R.string.exit_hint));
+			builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO 自动生成的方法存根
+					getActivity().finish();
+				}
+			});
+			
+			builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO 自动生成的方法存根
+					//do nothing to return to the menu scene
+				}
+			});
+			
+			AlertDialog exitDialog = builder.create();
+			exitDialog.show();
 		}
         //anyway , show the sliding menu
         ((MainActivity)getActivity()).getSlidingMenu().toggle();

@@ -4,68 +4,60 @@
     android:gravity="center_horizontal|left"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#007fff" >
+        
+        <ImageView
+        android:id="@+id/jobdetails_back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/back" />
+
+    <ImageView
+        android:id="@+id/jobdetails_collect"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/add1" />
+
+    <Button
+        android:id="@+id/jobdetails_submit"
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="2"
-        android:orientation="vertical" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <Button
-                android:id="@+id/jobdetails_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Button" />
-
-            <Button
-                android:id="@+id/jobdetails_offline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/offlineprofile" />
-
-            <Button
-                android:id="@+id/jobdetails_online"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/onlineprofile" />
-        </LinearLayout>
+        android:layout_alignBottom="@+id/jobdetails_back"
+        android:layout_toLeftOf="@+id/jobdetails_collect"
+        android:layout_toRightOf="@+id/jobdetails_back"
+        android:text="Submit My Profile" />
+    </RelativeLayout>
 
         <TextView
             android:id="@+id/jobdetails_message_title"
             android:layout_width="fill_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:text="#####" />
 
         <TextView
             android:id="@+id/jobdetails_company"
             android:layout_width="fill_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:text="#####" />
 
         <TextView
             android:id="@+id/jobdetails_location"
             android:layout_width="fill_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:text="#####" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:orientation="vertical" >
-
-        <ListView
-            android:id="@+id/jobdetails_listView1"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent" >
-        </ListView>
-    </LinearLayout>
+        <TextView
+            android:id="@+id/jobdetails_details"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
 
 </LinearLayout>
