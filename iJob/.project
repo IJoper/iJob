@@ -3,6 +3,7 @@
 	<name>iJob</name>
 	<comment></comment>
 	<projects>
+		<project>SlidingMenu</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

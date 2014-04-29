@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     >
-
-    <Preference
-        android:key="a"
+	<com.ijob.preference.MenuPreference
+	    android:key="a"
         android:title="@string/menu_mainscene"
-        />
+        app:icon="@drawable/home"
+	    />
+    
 
-    <Preference
+    <com.ijob.preference.MenuPreference
         android:key="b"
         android:title="@string/menu_message"
-        />
+        app:icon="@drawable/message"
+        
+        /> 
 
-    <Preference
+    <com.ijob.preference.MenuPreference
         android:key="c"
         android:title="@string/menu_focus"
+         app:icon="@drawable/follow"
         />
     
     <Preference

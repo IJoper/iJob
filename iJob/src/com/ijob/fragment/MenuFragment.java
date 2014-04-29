@@ -2,8 +2,10 @@ package com.ijob.fragment;
 
 import com.example.ijob.MainActivity;
 import com.example.ijob.R;
+import com.example.ijob.SetFollowActivity;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -69,11 +71,13 @@ public class MenuFragment extends PreferenceFragment implements OnPreferenceClic
                 return true;
             }
             index = 3;
-            FragmentManager fragmentManager = ((MainActivity)getActivity()).getFragmentManager();
-            FocusFragment contentFragment = (FocusFragment)fragmentManager.findFragmentByTag("C");
-            fragmentManager.beginTransaction()
-            .replace(R.id.content, contentFragment == null ? new FocusFragment():contentFragment,"C")
-            .commit();
+//            FragmentManager fragmentManager = ((MainActivity)getActivity()).getFragmentManager();
+//            FocusFragment contentFragment = (FocusFragment)fragmentManager.findFragmentByTag("C");
+//            fragmentManager.beginTransaction()
+//            .replace(R.id.content, contentFragment == null ? new SetFollowActivity():contentFragment,"C")
+//            .commit();
+            Intent intent = new Intent(getActivity(), SetFollowActivity.class);
+            startActivity(intent);
         }else if ("d".equals(key)) {
 			if (index == 4) {
 				((MainActivity)getActivity()).getSlidingMenu().toggle();

@@ -7,12 +7,15 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="19" />
-    
-	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
-	<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
+
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" >
+    </uses-permission>
 
     <application
         android:allowBackup="true"
+        android:name="com.example.ijob.Follow"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
@@ -24,6 +27,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.ijob.CitySelectActivity"
+            android:label="@string/title_activity_city_select" >
+        </activity>
+        <activity
+            android:name="com.example.ijob.SetFollowActivity"
+            android:label="@string/title_activity_set_follow" >
         </activity>
     </application>
 
