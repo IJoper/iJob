@@ -36,6 +36,10 @@ public class Follow extends Application {
 		
 		return cityChoicesList;
 	}
+	/**
+	 * È¡Ïû¹Ø×¢
+	 * @param s
+	 */
 	public void removeCityChoiceFromList(String s){
 		cityChoicesList.remove(s);
 	}
