@@ -26,4 +26,8 @@
     <style name="textViewBg">
         <item name="android:background">@drawable/rectangle</item>
     </style>
+    
+    <style name="CustomCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+	<item name="android:button">@drawable/checkbox_style</item>
+	</style>
 </resources>

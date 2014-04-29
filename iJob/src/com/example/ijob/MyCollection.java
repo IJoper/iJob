@@ -11,6 +11,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -33,6 +34,7 @@ public class MyCollection extends Activity{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE); //ÉùÃ÷Òþ²Ø±êÌâ
 		setContentView(R.layout.personal_collection);
 		backImageView = (ImageView)findViewById(R.id.personal_collection_back);
 		cleanallButton = (Button)findViewById(R.id.personal_collection_cleanall);

@@ -50,7 +50,7 @@ public class JobDetails extends Activity{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE); //声明使用自定义标题
+		requestWindowFeature(Window.FEATURE_NO_TITLE); //声明隐藏标题
 		setContentView(R.layout.jobdetails);
 //		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//自定义布局赋值
 		

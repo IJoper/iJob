@@ -22,6 +22,7 @@ import com.example.ijob.MyCollection;
 import com.example.ijob.MyFocus;
 import com.example.ijob.MyProfile;
 import com.example.ijob.R;
+import com.example.ijob.SetFollowActivity;
 import com.ijob.db.DBHelper;
 
 public class Personal extends Fragment {
@@ -91,8 +92,8 @@ public class Personal extends Fragment {
 					startActivity(intent1);
 					break;
 				case 2:
-					Intent intent2 = new Intent(view.getContext(), MyFocus.class);
-					startActivity(intent2);
+					Intent intent2 = new Intent(view.getContext(), SetFollowActivity.class);
+		            startActivity(intent2);
 					break;
 				default:
 					break;
