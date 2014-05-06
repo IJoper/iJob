@@ -6,17 +6,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.example.ijob.R;
+
 import android.R.bool;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 public class DBHelper extends SQLiteOpenHelper {
 
 	private static final int VERSION = 1; //定义数据库版本号
 	private static final String DB_NAME = "MainListViewDB.db"; //定义数据库名字
 	private static final String LISTVIEW_TABLE = "listview_db";
 	private static final String COLLECTIION_TABLE = "collection_db";
+	private static final String CITY_TABLE = "focuscity_db";
+	private static final String JOB_TABLE = "focusjob_db";
+	private static final int JobTypeCount = 13;
 	
 	/**
 	 * Title:        MyDataBase
@@ -52,10 +58,22 @@ public class DBHelper extends SQLiteOpenHelper {
 				+ "payment varchar(50), "				//月薪，字符类型
 				+ "release_time varchar(50), "			//发布时间，字符类型
 				+ "deadline varchar(50))");			//截止时间，字符类型
+		
+		db.execSQL("create table "+CITY_TABLE+" ("//表名
+				+ "_id integer primary key autoincrement, "			//主键，简介信息的ID，类型为数字，唯一性
+				+ "city_choose integer, "
+				+ "city_name varchar(100))");
+		
+		db.execSQL("create table "+JOB_TABLE+" ("//表名
+				+ "_id integer primary key autoincrement, "			//主键，简介信息的ID，类型为数字，唯一性
+				+ "job_choose integer, "
+				+ "job_name varchar(100))");
 	}
+	
 	public int getMainListViewItemNum(){
 		return 0;
 	}
+	
 	public int getCollectionListViewItemNum(){
 		int Itemcount = 0;
 		SQLiteDatabase db = getReadableDatabase();
@@ -65,9 +83,61 @@ public class DBHelper extends SQLiteOpenHelper {
 		db.close();
 		return Itemcount;
 	}
+	public int getCityNum(){
+		int Itemcount = 0;
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor cursor = db.query(CITY_TABLE, null, null, null, null, null, null);
+		Itemcount = cursor.getCount();
+		cursor.close();
+		db.close();
+		return Itemcount;
+	}
+	public int getJobNum(){
+		int Itemcount = 0;
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor cursor = db.query(JOB_TABLE, null, null, null, null, null, null);
+		Itemcount = cursor.getCount();
+		cursor.close();
+		db.close();
+		return Itemcount;
+	}
+	public void initCityTable(int cityID[], String cityName[]){
+		for (int i = 0; i < cityID.length; i++) {
+			City_Item city_Item = new City_Item(cityID[i], 0, cityName[i]);
+			this.addCityByItem(city_Item);
+		}
+	}
+	public void initJobTable(int jobTypeID[][], String jobTypeName[][]){
+		for (int i = 0; i < JobTypeCount; i++) {
+			for (int j = 0; j < jobTypeID[i].length; j++) {
+				Job_Item job_Item = new Job_Item(jobTypeID[i][j], 0, jobTypeName[i][j]);
+				this.addJobByItem(job_Item);
+			}
+		}
+	}
+	public void addCityByItem(City_Item city_Item){
+		SQLiteDatabase db = getWritableDatabase();
+		db.execSQL("insert into "+CITY_TABLE+" "
+				+ "(_id,city_choose,city_name) "
+				+ "values (?,?,?)",     //“添加”的数据库指令
+				new Object[] {city_Item.getCityId(), 
+				city_Item.getCityChoose(), 
+				city_Item.getCityName()});
+		db.close();
+	}
+	public void addJobByItem(Job_Item job_Item){
+		SQLiteDatabase db = getWritableDatabase();
+		db.execSQL("insert into "+JOB_TABLE+" "
+				+ "(_id,job_choose,job_name) "
+				+ "values (?,?,?)",     //“添加”的数据库指令
+				new Object[] {job_Item.getJobId(), 
+				job_Item.getJobChoose(), 
+				job_Item.getJobName()});
+		db.close();
+	}
 	public void addMainListViewByItem(Infor_item infor_item) {
 		SQLiteDatabase db = getWritableDatabase(); //获取可写入的数据库对象。
-		db.execSQL("insert into "+LISTVIEW_TABLE+" "
+		db.execSQL("insert into "+LISTVIEW_TABLE
 				+ "(_id,message_title,company,job_type,location,payment,release_time,deadline) "
 				+ "values (?,?,?,?,?,?,?,?)",     //“添加”的数据库指令
 				new Object[] {infor_item.getid(), infor_item.getmessage_title(),infor_item.getcompany(),
@@ -79,7 +149,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	
 	public void addCollectionListViewByItem(Infor_item infor_item) {
 		SQLiteDatabase db = getWritableDatabase(); //获取可写入的数据库对象。
-		db.execSQL("insert into "+COLLECTIION_TABLE+" "
+		db.execSQL("insert into "+COLLECTIION_TABLE
 				+ "(_id,message_title,company,job_type,location,payment,release_time,deadline) "
 				+ "values (?,?,?,?,?,?,?,?)",     //“添加”的数据库指令
 				new Object[] {infor_item.getid(), infor_item.getmessage_title(),infor_item.getcompany(),
@@ -113,12 +183,23 @@ public class DBHelper extends SQLiteOpenHelper {
 	}
 	public void deleteMainListViewTable(){
 		SQLiteDatabase db = getWritableDatabase();
-		db.execSQL("delete from "+LISTVIEW_TABLE+" where_id > 0 ");
+		db.execSQL("delete from "+LISTVIEW_TABLE+" where _id > 0 ");
 		db.close();
 	}
 	public void deleteCollectionListViewTable(){
 		SQLiteDatabase db = getWritableDatabase();
-		db.execSQL("delete from "+COLLECTIION_TABLE+" where_id > 0 ");
+		db.execSQL("delete from "+COLLECTIION_TABLE+" where _id > 0 ");
+		db.close();
+	}
+	
+	public void deleteCityTable(){
+		SQLiteDatabase db = getWritableDatabase();
+		db.execSQL("delete from "+CITY_TABLE+" where _id > 0 ");
+		db.close();
+	}
+	public void deleteJobTable(){
+		SQLiteDatabase db = getWritableDatabase();
+		db.execSQL("delete from "+JOB_TABLE+" where _id > 0 ");
 		db.close();
 	}
 	
@@ -140,6 +221,23 @@ public class DBHelper extends SQLiteOpenHelper {
 							 } );
 		db.close();
 	}
+	//根据保存的信息更新
+	public void updateCityTableByList(List <City_Item> CityList){
+		this.deleteCityTable();
+		for (int i = 0; i < CityList.size(); i++) {
+			this.addCityByItem(CityList.get(i));
+		}
+	}
+	//根据保存的信息更新
+	public void updateJobTableByList(Map<String, List<Job_Item>> map){
+		this.deleteJobTable();
+		for (int i = 11; i < 24; i++) {
+			for (int j = 0; j < map.get(""+i).size(); j++) {
+				this.addJobByItem(map.get(""+i).get(j));
+			}
+		}
+	}
+	
 	
 	/**
 	 * 
@@ -182,13 +280,62 @@ public class DBHelper extends SQLiteOpenHelper {
 		db.close();
 		return false;
 	}
-	
-	//返回数据库中所有的项
+	//根据唯一职业ID获取职位信息
+	public Job_Item findJobItemById(int _id){
+		SQLiteDatabase db = getReadableDatabase(); 
+		Log.i("findJobItemById id = ", ""+_id);
+		String selection = "_id = ?";
+		String[] selectionArgs = { Integer.toString(_id) };
+		Cursor cursor = db.query(JOB_TABLE, null, selection, selectionArgs, null, null, null);
+		if (cursor.moveToNext()) {
+			Job_Item job_Item = new Job_Item(cursor.getInt(cursor.getColumnIndex("_id")), 
+					cursor.getInt(cursor.getColumnIndex("job_choose")), 
+					cursor.getString(cursor.getColumnIndex("job_name")));
+			cursor.close();
+			db.close();
+			return job_Item;
+		}
+		cursor.close();
+		db.close();
+		return null;
+	}
+	//获取地区信息
+	public List<City_Item> getCityList(){
+		List<City_Item> CityList = new ArrayList<City_Item>();
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor cursor = db.query(CITY_TABLE, null, null, null, null, null, null);
+		if (cursor.getCount() < 1) {
+			cursor.close();
+			db.close();
+			return null;
+		}
+		if (cursor.moveToFirst()) {
+			do {
+				CityList.add(new City_Item(cursor.getInt(cursor.getColumnIndex("_id")), 
+						cursor.getInt(cursor.getColumnIndex("city_choose")), 
+						cursor.getString(cursor.getColumnIndex("city_name"))));
+			} while (cursor.moveToNext());
+		}
+		cursor.close();
+		db.close();
+		return CityList;
+	}
+	//根据一组职业的ID获取工作职位信息
+	public List<Job_Item> getJobListByIdArray(int jobTypeID[]){
+		List<Job_Item> JobList = new ArrayList<Job_Item>();
+		if (this.getJobNum() < 1) {
+			return null;
+		}
+		Log.i("jobTypeID length = ", ""+jobTypeID.length);
+		for (int i = 0; i < jobTypeID.length; i++) {
+			JobList.add(findJobItemById(jobTypeID[i]));
+		}
+		return JobList;
+	}
+	//返回首页中所有的项
 	public List<Map<String, Object>> getMainListViewAllItem(){
+		SQLiteDatabase db = getWritableDatabase(); //获取可写入的数据库对象。
 		List<Map<String, Object>> dataList = new ArrayList<Map<String, Object>>();
-
-		SQLiteDatabase db = getReadableDatabase(); //获取可写入的数据库对象。
-		
 		Cursor cursor = db.query(LISTVIEW_TABLE, null, null, null, null, null, null);
 		if (cursor.getCount() < 1) {
 			cursor.close();
@@ -210,7 +357,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		db.close();
 		return dataList;
 	}
-	
+	//获取所有的收藏项
 	public List<Map<String, Object>> getCollectionListViewAllItem(){
 		List<Map<String, Object>> dataList = new ArrayList<Map<String, Object>>();
 
@@ -236,6 +383,54 @@ public class DBHelper extends SQLiteOpenHelper {
 		cursor.close();
 		db.close();
 		return dataList;
+	}
+	//获取设置关注的地区
+	public List<City_Item> getFocusCityList(){
+		List<City_Item> focusCityList = new ArrayList<City_Item>();
+		SQLiteDatabase db = getReadableDatabase(); //获取可写入的数据库对象。
+		
+		Cursor cursor = db.query(CITY_TABLE, null, null, null, null, null, null);
+		if (cursor.getCount() < 1) {
+			cursor.close();
+			db.close();
+			return null;
+		}
+		if (cursor.moveToFirst()) {
+			 do{
+				 if (cursor.getInt(cursor.getColumnIndex("city_choose")) == 1) {
+					 focusCityList.add(new City_Item(cursor.getInt(cursor.getColumnIndex("_id")), 
+								cursor.getInt(cursor.getColumnIndex("city_choose")), 
+								cursor.getString(cursor.getColumnIndex("city_name"))));
+				}
+			}while(cursor.moveToNext());
+		}
+		cursor.close();
+		db.close();
+		return focusCityList;
+	}
+	//获取设置关注的工作职位
+	public List<Job_Item> getFocusJobList(){
+		List<Job_Item> focusJobList = new ArrayList<Job_Item>();
+		SQLiteDatabase db = getReadableDatabase(); //获取可写入的数据库对象。
+		
+		Cursor cursor = db.query(JOB_TABLE, null, null, null, null, null, null);
+		if (cursor.getCount() < 1) {
+			cursor.close();
+			db.close();
+			return null;
+		}
+		if (cursor.moveToFirst()) {
+			 do{
+				 if (cursor.getInt(cursor.getColumnIndex("job_choose")) == 1) {
+					 focusJobList.add(new Job_Item(cursor.getInt(cursor.getColumnIndex("_id")), 
+								cursor.getInt(cursor.getColumnIndex("job_choose")), 
+								cursor.getString(cursor.getColumnIndex("job_name"))));
+				}
+			}while(cursor.moveToNext());
+		}
+		cursor.close();
+		db.close();
+		return focusJobList;
 	}
 	/* （非 Javadoc）
 	 * @see android.database.sqlite.SQLiteOpenHelper#onUpgrade(android.database.sqlite.SQLiteDatabase, int, int)

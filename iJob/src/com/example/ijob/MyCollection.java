@@ -5,15 +5,21 @@ import java.util.List;
 import java.util.Map;
 
 import com.ijob.db.DBHelper;
+import com.ijob.fragment.MainFragment;
+import com.ijob.fragment.Personal;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentManager;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -41,6 +47,7 @@ public class MyCollection extends Activity{
 		myListView = (ListView)findViewById(R.id.personal_collection_listview1);
 		myDbHelper = new DBHelper(this);
 		DataList = myDbHelper.getCollectionListViewAllItem();
+		
 		if (DataList == null) {
 			DataList = new ArrayList<Map<String,Object>>();
 		}
@@ -90,12 +97,30 @@ public class MyCollection extends Activity{
 				return false;
 			}
 		});
+		//点击查看
+		myListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO 自动生成的方法存根
+				String job_id;
+				Log.i("position", " "+position);
+				job_id = DataList.get(position).get("id").toString();
+				Bundle bundle = new Bundle();
+				bundle.putString("job_id", job_id);
+				Intent intent = new Intent(view.getContext(), JobDetails.class);
+				intent.putExtras(bundle);
+				startActivity(intent);
+			}
+		});
+		
 		backImageView.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO 自动生成的方法存根
-				finish();
+	            finish();
 			}
 		});
 		cleanallButton.setOnClickListener(new OnClickListener() {

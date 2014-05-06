@@ -8,15 +8,12 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="19" />
 
-    <uses-permission android:name="android.permission.INTERNET" >
-    </uses-permission>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" >
-    </uses-permission>
-
+    <uses-permission android:name="android.permission.INTERNET" ></uses-permission>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" ></uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"> </uses-permission>
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:name="com.example.ijob.Follow"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -46,11 +43,31 @@
             android:name="com.example.ijob.CitySelectActivity"
             android:label="@string/title_activity_city_select" >
         </activity>
-        
+        <activity 
+            android:name="com.example.ijob.PostSelectActivity">
+            
+        </activity>
         <activity
             android:name="com.example.ijob.SetFollowActivity"
             android:label="@string/title_activity_set_follow" >
         </activity>
+        <!-- 为此应用私有的独立进程 -->  
+        <service 
+            android:process=":MessageActivity"
+            android:name="com.ijob.messagealarm.MessageActivity">
+        </service>
+ 		<service 
+ 		     android:process=":MyAlarm"
+            android:name="com.ijob.messagealarm.MyAlarm">
+        </service>
+        <!-- 监听系统启动广播 -->
+        <receiver
+            android:name="com.ijob.messagealarm.BootBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <category android:name="android.intent.category.HOME"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -39,6 +39,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 
 public class MainFragment extends Fragment implements IXListViewListener{
@@ -51,8 +52,8 @@ public class MainFragment extends Fragment implements IXListViewListener{
 	private XListView mListView;
 	private DBHelper myDbHelper;
 	private EditText editText;
-	private Button searchButton;
-	private Button moreButton;
+	private Button search;
+	private Button more;
 	
 	public MainFragment() {
 	}
@@ -69,12 +70,11 @@ public class MainFragment extends Fragment implements IXListViewListener{
 			Bundle savedInstanceState) {
 		// inflater the layout
 		View view = inflater.inflate(R.layout.main_listview, null);
-		editText = (EditText)view.findViewById(R.id.mainscene_input);
-		searchButton = (Button)view.findViewById(R.id.mainscene_search);
-		moreButton = (Button)view.findViewById(R.id.mainscene_add);
+		editText = (EditText)view.findViewById(R.id.main_editText);
+		search = (Button)view.findViewById(R.id.main_serach);
+		more = (Button)view.findViewById(R.id.main_more);
 		mListView = (XListView) view.findViewById(R.id.main_xListView1);
 		
-		editText.setFocusable(false);
 		editText.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -95,9 +95,6 @@ public class MainFragment extends Fragment implements IXListViewListener{
 			start = Integer.parseInt(mDataList.get(0).get("id").toString())+1;
 		}
 		Log.i("start", ""+start);
-		Button searchButton = (Button) view.findViewById(R.id.mainscene_search);
-		Button chooseButton = (Button) view.findViewById(R.id.mainscene_add);
-		EditText editText = (EditText) view.findViewById(R.id.mainscene_input);
 		
 		mListView.setPullLoadEnable(true);
 		
@@ -125,21 +122,35 @@ public class MainFragment extends Fragment implements IXListViewListener{
 			}
 		});
 
-		searchButton.setOnClickListener(new OnClickListener() {
+		search.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO 自动生成的方法存根
-
+				String inputString = editText.getText().toString();
+				String locationString = new String();
+				String jobtypeString = new String();
+//				Log.i("input", inputString);
+//				Log.i("length", ""+inputString.length());
+				if (inputString.length() == 0) {
+					Toast.makeText(v.getContext(), "You input nothing !", Toast.LENGTH_SHORT).show();
+				}
+				if (inputString.contains("，")) {
+					locationString = inputString.substring(0, inputString.indexOf("，"));
+					jobtypeString = inputString.substring(inputString.indexOf("，")+1, inputString.length());
+//					Toast.makeText(v.getContext(), "l="+locationString+" j="+jobtypeString, Toast.LENGTH_SHORT).show();
+				}else {
+					Toast.makeText(v.getContext(), "正确输入格式：地区，职位", Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 
-		chooseButton.setOnClickListener(new OnClickListener() {
+		more.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO 自动生成的方法存根
-
+				
 			}
 		});
 		return view;
@@ -213,7 +224,7 @@ public class MainFragment extends Fragment implements IXListViewListener{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		Log.i("result", result);
+		Log.i("result", result);
 		return result;
 	}
 

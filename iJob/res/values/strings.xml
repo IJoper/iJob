@@ -4,7 +4,6 @@
     <string name="app_name">iJob</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    
     <string name="xlistview_header_hint_normal">下拉刷新</string>
     <string name="xlistview_header_hint_ready">松开刷新数据</string>
     <string name="xlistview_header_hint_loading">正在加载...</string>
@@ -17,33 +16,466 @@
     <string name="onlineprofile">线上简历</string>
     <string name="offlineprofile">我的简历</string>
     <string name="inputhint">地区，职位</string>
-	<string name="menu_settings">设置</string>
-	
-	<string name="submit">保存</string>
-	<string name="availableCity"></string>
+    <string name="menu_settings">设置</string>
+    <string name="search_hint">地区，职位</string>
+    <string name="submit">保存</string>
+    <string name="availableCity"></string>
     <string name="title_activity_city_select">CitySelectActivity</string>
     <string name="title_activity_set_follow">SetFollowActivity</string>
-	
-	
-	<string name="menu_mainscene">主页</string>
-	<string name="menu_personal">个人中心</string>
-	<string name="menu_server">百宝箱</string>
-	<string name="menu_version">版本更新</string>
-	<string name="menu_request">问题反馈</string>
-	<string name="menu_exit">退出</string>
-	
-	<string name="collect">收        藏</string>
-	<string name="profile">已投简历</string>
-	<string name="setfocus">关注设置</string>
-	
-	<string name="havask">简历投递</string>
-	<string name="focusnews">最新信息</string>
-	
-	<string name="exit_hint">您确定要退出么？</string>
-	<string name="delete_hint">您确定要删除该项么？</string>
-	<string name="yes">是</string>
-	<string name="no">否</string>
-	
-	
-	<drawable name="color">#00000000</drawable>
+    <string name="menu_mainscene">主页</string>
+    <string name="menu_personal">个人中心</string>
+    <string name="menu_server">百宝箱</string>
+    <string name="menu_version">版本更新</string>
+    <string name="menu_request">问题反馈</string>
+    <string name="menu_exit">退出</string>
+    <string name="collect">收        藏</string>
+    <string name="profile">已投简历</string>
+    <string name="setfocus">关注设置</string>
+    <string name="havask">简历投递</string>
+    <string name="focusnews">最新信息</string>
+    <string name="exit_hint">您确定要退出么？</string>
+    <string name="delete_hint">您确定要删除该项么？</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+
+    <drawable name="color">#00000000</drawable>
+
+    <integer-array name="city_id">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </integer-array>
+
+    <string-array name="city_name">
+        <item>北京</item>
+        <item>上海</item>
+        <item>南京</item>
+        <item>武汉</item>
+        <item>杭州</item>
+        <item>广州</item>
+        <item>深圳</item>
+        <item>珠海</item>
+        <item>香港</item>
+    </string-array>
+
+    <integer-array name="job_id">
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+    </integer-array>
+    <integer-array name="job_type11">
+        <item>1101</item>
+        <item>110101</item>
+        <item>110102</item>
+        <item>110103</item>
+        <item>110104</item>
+        <item>110105</item>
+        <item>110106</item>
+        <item>110107</item>
+        <item>110108</item>
+        <item>110109</item>
+        <item>110110</item>
+        <item>110111</item>
+        <item>110112</item>
+        <item>110113</item>
+        <item>1102</item>
+        <item>110201</item>
+        <item>110202</item>
+        <item>110203</item>
+        <item>110204</item>
+        <item>110205</item>
+        <item>110206</item>
+        <item>110207</item>
+        <item>110208</item>
+        <item>110209</item>
+        <item>110210</item>
+        <item>110211</item>
+        <item>110212</item>
+        <item>110213</item>
+        <item>110214</item>
+        <item>110215</item>
+        <item>1103</item>
+        <item>1104</item>
+        <item>1105</item>
+        <item>1106</item>
+        <item>1107</item>
+    </integer-array>
+    <integer-array name="job_type12">
+        <item>1201</item>
+        <item>1202</item>
+        <item>1203</item>
+    </integer-array>
+    <integer-array name="job_type13">
+        <item>1301</item>
+        <item>1302</item>
+        <item>1303</item>
+    </integer-array>
+    <integer-array name="job_type14">
+        <item>1401</item>
+        <item>140101</item>
+        <item>140102</item>
+        <item>140103</item>
+        <item>140104</item>
+        <item>140105</item>
+        <item>140106</item>
+        <item>140107</item>
+        <item>140108</item>
+        <item>140109</item>
+        <item>140110</item>
+        <item>140111</item>
+        <item>140112</item>
+        <item>140113</item>
+        <item>140114</item>
+        <item>140115</item>
+        <item>140116</item>
+        <item>140117</item>
+        <item>140118</item>
+        <item>140119</item>
+        <item>140120</item>
+        <item>140121</item>
+        <item>140122</item>
+        <item>1402</item>
+        <item>140201</item>
+        <item>140202</item>
+        <item>140203</item>
+        <item>140204</item>
+        <item>1403</item>
+        <item>140301</item>
+        <item>140302</item>
+        <item>140303</item>
+        <item>140304</item>
+        <item>140305</item>
+        <item>140306</item>
+        <item>140307</item>
+        <item>140308</item>
+        <item>140309</item>
+        <item>1404</item>
+        <item>140401</item>
+        <item>140402</item>
+        <item>140403</item>
+        <item>140404</item>
+        <item>140405</item>
+        <item>140406</item>
+        <item>140407</item>
+        <item>140408</item>
+        <item>1405</item>
+        <item>140501</item>
+        <item>140502</item>
+        <item>140503</item>
+        <item>140504</item>
+        <item>140505</item>
+        <item>140506</item>
+        <item>140507</item>
+        <item>140508</item>
+        <item>140509</item>
+        <item>140510</item>
+        <item>140511</item>
+        <item>140512</item>
+        <item>140513</item>
+        <item>140514</item>
+        <item>140515</item>
+        <item>140516</item>
+        <item>1406</item>
+        <item>140601</item>
+        <item>140602</item>
+        <item>140603</item>
+        <item>140604</item>
+        <item>140605</item>
+        <item>140606</item>
+        <item>1407</item>
+        <item>140701</item>
+        <item>140702</item>
+        <item>140703</item>
+        <item>140704</item>
+        <item>140705</item>
+        <item>140706</item>
+        <item>140707</item>
+        <item>140708</item>
+        <item>140709</item>
+        <item>140710</item>
+        <item>140711</item>
+        <item>140712</item>
+    </integer-array>
+    <integer-array name="job_type15">
+        <item>1501</item>
+        <item>1502</item>
+        <item>1503</item>
+    </integer-array>
+    <integer-array name="job_type16">
+        <item>1601</item>
+        <item>1602</item>
+        <item>1603</item>
+        <item>1604</item>
+    </integer-array>
+    <integer-array name="job_type17">
+        <item>1701</item>
+        <item>1702</item>
+        <item>1703</item>
+    </integer-array>
+    <integer-array name="job_type18">
+        <item>1801</item>
+        <item>1802</item>
+        <item>1803</item>
+        <item>1804</item>
+        <item>1805</item>
+        <item>1806</item>
+        <item>1807</item>
+        <item>1808</item>
+        <item>1809</item>
+        <item>1810</item>
+    </integer-array>
+    <integer-array name="job_type19">
+        <item>1901</item>
+        <item>1902</item>
+    </integer-array>
+    <integer-array name="job_type20">
+        <item>2001</item>
+        <item>2002</item>
+        <item>2003</item>
+        <item>2004</item>
+    </integer-array>
+    <integer-array name="job_type21">
+        <item>2101</item>
+        <item>2102</item>
+        <item>2103</item>
+        <item>2104</item>
+        <item>2105</item>
+        <item>2106</item>
+    </integer-array>
+    <integer-array name="job_type22">
+        <item>2201</item>
+        <item>2202</item>
+        <item>2203</item>
+        <item>2204</item>
+    </integer-array>
+    <integer-array name="job_type23">
+        <item>2301</item>
+        <item>2302</item>
+        <item>2303</item>
+        <item>2304</item>
+    </integer-array>
+
+    <string-array name="job_id_name">
+        <item>销售|客服|市场</item>
+        <item>财务|人力资源|行政</item>
+        <item>项目|质量|高级管理</item>
+        <item>IT|互联网|通信</item>
+        <item>房产|建筑|物业管理</item>
+        <item>金融</item>
+        <item>采购|贸易|交通|物流</item>
+        <item>生产制造</item>
+        <item>咨询|法律|教育|翻译</item>
+        <item>传媒|印刷|艺术|设计</item>
+        <item>服务业</item>
+        <item>兼职|实习|社工|其他</item>
+        <item>能源|环保|农业|科研</item>
+    </string-array>
+    <string-array name="job_type11_name">
+        <item>销售业务</item>
+        <item>销售代表</item>
+        <item>客户代表</item>
+        <item>销售工程师</item>
+        <item>渠道/分销专员</item>
+        <item>区域销售专员/助理</item>
+        <item>业务拓展专员/助理</item>
+        <item>大客户销售代表</item>
+        <item>电话销售</item>
+        <item>网络/在线销售</item>
+        <item>团购业务员</item>
+        <item>销售业务跟单</item>
+        <item>医药代表</item>
+        <item>其他</item>
+        <item>销售管理</item>
+        <item>销售总监</item>
+        <item>销售经理</item>
+        <item>销售主管</item>
+        <item>客户总监</item>
+        <item>客户经理</item>
+        <item>客户主管</item>
+        <item>渠道/分销总监</item>
+        <item>渠道/分销经理/主管</item>
+        <item>区域销售总监/主管</item>
+        <item>区域销售经理/主管</item>
+        <item>业务拓展经理</item>
+        <item>大客户销售经理</item>
+        <item>团购经理/主管</item>
+        <item>医药销售经理/主管</item>
+        <item>其他</item>
+        <item>销售行政</item>
+        <item>客服/售前/售后技术支持</item>
+        <item>市场</item>
+        <item>公关/媒介</item>
+        <item>广告/会展</item>
+    </string-array>
+    <string-array name="job_type12_name">
+        <item>财务/审计/税务</item>
+        <item>人力资源</item>
+        <item>行政/后勤/文秘</item>
+    </string-array>
+    <string-array name="job_type13_name">
+        <item>项目管理/项目协调</item>
+        <item>质量管理/安全防护</item>
+        <item>高级管理</item>
+    </string-array>
+    <string-array name="job_type14_name">
+        <item>软件/互联网开发/系统集成</item>
+        <item>高级软件工程师</item>
+        <item>软件工程师</item>
+        <item>软件研发工程师</item>
+        <item>需求工程师</item>
+        <item>系统架构设计师</item>
+        <item>系统分析员</item>
+        <item>数据库开发工程师</item>
+        <item>ERP技术/开发应用</item>
+        <item>互联网软件工程师</item>
+        <item>手机软件开发工程师</item>
+        <item>嵌入式软件开发</item>
+        <item>移动互联网开发</item>
+        <item>WEB前端开发</item>
+        <item>语音/视频/图形开发</item>
+        <item>用户界面(UI)设计</item>
+        <item>UE/UX设计</item>
+        <item>网页设计/制作/美工</item>
+        <item>游戏设计/开发</item>
+        <item>游戏策划</item>
+        <item>游戏界面设计</item>
+        <item>系统集成工程师</item>
+        <item>其他</item>
+        <item>硬件开发</item>
+        <item>高级硬件工程师</item>
+        <item>硬件工程师</item>
+        <item>嵌入式硬件开发</item>
+        <item>其他</item>
+        <item>互联网产品/运营管理</item>
+        <item>互联网产品经理/主管</item>
+        <item>互联网产品专员/助理</item>
+        <item>电子商务经理/主管</item>
+        <item>电子商务专员/助理</item>
+        <item>网络运营管理</item>
+        <item>网络运营专员/助理</item>
+        <item>网站编辑</item>
+        <item>SEO/SEM</item>
+        <item>其他</item>
+        <item>IT质量管理/测试/配置管理</item>
+        <item>IT质量管理经理/主管</item>
+        <item>IT质量管理工程师</item>
+        <item>系统测试</item>
+        <item>软件测试</item>
+        <item>硬件测试</item>
+        <item>配置管理工程师</item>
+        <item>信息技术标准化工程师</item>
+        <item>其他</item>
+        <item>IT运维/技术支持</item>
+        <item>信息技术管理经理/主管</item>
+        <item>信息技术专员</item>
+        <item>IT技术支持/维护经理</item>
+        <item>IT技术支持工程师</item>
+        <item>系统工程师</item>
+        <item>系统管理员</item>
+        <item>网络工程师</item>
+        <item>网络管理员</item>
+        <item>网络与信息安全工程师</item>
+        <item>数据库管理员</item>
+        <item>计算机硬件维护工程师</item>
+        <item>ERP实施顾问</item>
+        <item>IT技术文员/助理</item>
+        <item>IT文档工程师</item>
+        <item>Helpdesk</item>
+        <item>其他</item>
+        <item>IT管理/项目协调</item>
+        <item>CTO/CIO</item>
+        <item>IT技术/技术总监</item>
+        <item>IT技术/研发经理/主管</item>
+        <item>IT项目总监</item>
+        <item>IT项目执行/协调人员</item>
+        <item>其他</item>
+        <item>电信/通信技术开发及应用</item>
+        <item>通信技术工程师</item>
+        <item>通信研发工程师</item>
+        <item>数据通信工程师</item>
+        <item>移动通信工程师</item>
+        <item>电信网络工程师</item>
+        <item>电信交换工程师</item>
+        <item>有线传输工程师</item>
+        <item>无线/射频通信工程师</item>
+        <item>通信电源工程师</item>
+        <item>通信标准化工程师</item>
+        <item>通信项目管理</item>
+        <item>其他</item>
+    </string-array>
+    <string-array name="job_type15_name">
+        <item>房地产开发/经纪/中介</item>
+        <item>土木/建筑/装修/市政工程</item>
+        <item>物业管理</item>
+    </string-array>
+    <string-array name="job_type16_name">
+        <item>银行</item>
+        <item>证券/期货/投资管理/服务</item>
+        <item>保险</item>
+        <item>信托/担保/拍卖</item>
+    </string-array>
+    <string-array name="job_type17_name">
+        <item>采购/贸易</item>
+        <item>交通运输服务</item>
+        <item>物流仓储</item>
+    </string-array>
+    <string-array name="job_type18_name">
+        <item>生产管理/运营</item>
+        <item>电子/电器/仪器仪表</item>
+        <item>汽车制造</item>
+        <item>汽车销售</item>
+        <item>汽车销售与服务</item>
+        <item>机械设计/制造/维修</item>
+        <item>服装/纺织/皮革设计/生产</item>
+        <item>技工/操作工</item>
+        <item>生物/制药/医疗器械</item>
+        <item>化工</item>
+    </string-array>
+    <string-array name="job_type19_name">
+        <item>影视/媒体/出版/印刷</item>
+        <item>艺术/设计</item>
+    </string-array>
+    <string-array name="job_type20_name">
+        <item>咨询|顾问|调研|数据分析</item>
+        <item>教育/培训</item>
+        <item>律师/法务/合规</item>
+        <item>翻译(口译与笔译)</item>
+    </string-array>
+    <string-array name="job_type21_name">
+        <item>商超/酒店/娱乐管理/服务</item>
+        <item>旅游/度假/出入境服务</item>
+        <item>烹饪/料理/食品研发</item>
+        <item>保健/美容/美发/健身</item>
+        <item>医院/医疗/护理</item>
+        <item>社区/居民/家政服务</item>
+    </string-array>
+    <string-array name="job_type22_name">
+        <item>能源/矿产/地质勘查</item>
+        <item>环境科学/环保</item>
+        <item>农/林/牧/渔业</item>
+        <item>公务员/事业单位/科研机构</item>
+    </string-array>
+    <string-array name="job_type23_name">
+        <item>实习生/培训生/储备干部</item>
+        <item>志愿者/社会工作者</item>
+        <item>兼职/临时</item>
+        <item>其他</item>
+    </string-array>
+
 </resources>

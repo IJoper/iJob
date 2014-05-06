@@ -2,6 +2,8 @@ package com.example.ijob;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,6 +13,7 @@ import android.widget.ImageView;
 
 import com.ijob.fragment.MainFragment;
 import com.ijob.fragment.MenuFragment;
+import com.ijob.messagealarm.BootBroadcastReceiver;
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.app.SlidingActivity;
 
@@ -31,6 +34,9 @@ public class MainActivity extends SlidingActivity {
         setContentView(R.layout.frame_content);
 //        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.title);
         
+        IntentFilter filter = new IntentFilter(Intent.ACTION_TIME_TICK);
+        BootBroadcastReceiver receiver = new BootBroadcastReceiver();
+        registerReceiver(receiver, filter);
         actionBar = getActionBar();
         actionBar.show();
         

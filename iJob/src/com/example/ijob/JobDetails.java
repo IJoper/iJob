@@ -52,7 +52,6 @@ public class JobDetails extends Activity{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE); //声明隐藏标题
 		setContentView(R.layout.jobdetails);
-//		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//自定义布局赋值
 		
 		companyTextView = (TextView)findViewById(R.id.jobdetails_company);
 		locationTextView = (TextView)findViewById(R.id.jobdetails_location);
@@ -92,6 +91,7 @@ public class JobDetails extends Activity{
 				}
 			}
 		};
+		
 		backImageView.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -100,6 +100,7 @@ public class JobDetails extends Activity{
 				finish();
 			}
 		});
+		
 		submitButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -108,6 +109,7 @@ public class JobDetails extends Activity{
 				Toast.makeText(v.getContext(), "function wait...", Toast.LENGTH_SHORT).show();
 			}
 		});
+		
 		collectImageView.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -137,6 +139,7 @@ public class JobDetails extends Activity{
 			}
 		});
 	}
+	
 	public String HTTPGetInfo() {
 		String uri = URL + jobID + ".json";
 		String result = "";

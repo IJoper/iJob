@@ -11,6 +11,9 @@
         android:layout_height="wrap_content"
         android:text="@string/availableCity"
         android:textSize="12sp"
+        android:focusable="false"
+		android:clickable="false"
+		android:focusableInTouchMode="false"
         style="@style/CustomCheckboxTheme" />
 
 	
