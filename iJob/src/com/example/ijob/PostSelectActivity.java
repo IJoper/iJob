@@ -10,6 +10,7 @@ import com.example.ijob.PostCheckBoxAdapter.PostViewHolder;
 import com.ijob.db.DBHelper;
 import com.ijob.db.Job_Item;
 
+import android.R.integer;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,14 +32,15 @@ public class PostSelectActivity extends Activity{
 	private DBHelper dbHelper = new DBHelper(this);
 	private Map<String, List<Job_Item>> jobListMap = new HashMap<String, List<Job_Item>>();
 	private String currentChoiceTypeString;
+	List<Job_Item> postChoicesList = new ArrayList<Job_Item>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.post_choices);
-		currentChoiceTypeString = "";
+		currentChoiceTypeString = "11";
 		availableProfessionListView = (ListView) findViewById(R.id.availableProfession);
 		
-		final List<Map<String, Object>> postList = new ArrayList<Map<String, Object>>();
+		//final List<Map<String, Object>> postList = new ArrayList<Map<String, Object>>();
 		String []professionArray = getResources().getStringArray(R.array.job_id_name);
 		ArrayList<String> professionList = new ArrayList<String>();
 		getJobData();
@@ -60,31 +62,24 @@ public class PostSelectActivity extends Activity{
 		
 		availableProfessionListView.setOnItemClickListener(new OnItemClickListener(){
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) {
-				List<Job_Item> professionPostChoice  = jobListMap.get(""+(arg2+11));
-				currentChoiceTypeString = ""+(arg2+11);
+				postChoicesList.clear();
+				int temp = (arg2+11);
+			
+				currentChoiceTypeString = ""+(temp);
+				postChoicesList.addAll(jobListMap.get(""+currentChoiceTypeString));
 				availablePostListView = (ListView)findViewById(R.id.postSelecting);
-				for (int i = 0; i < professionPostChoice.size(); i++) {
-					Map<String, Object> updatedMap = new HashMap<String, Object>();
-					updatedMap.put("post",professionPostChoice.get(i).getJobName());
-					postList.add(updatedMap);
-				}
 				PostCbAdapter.notifyDataSetChanged();
 			}
 		});
 		
 		availablePostListView = (ListView)findViewById(R.id.postSelecting);
-		List<Job_Item> postChoicesList = jobListMap.get(currentChoiceTypeString+11);
+		postChoicesList.addAll(jobListMap.get(currentChoiceTypeString));
+		Log.i("on init999999999 item click", currentChoiceTypeString);
 		if (postChoicesList == null) {
 			Log.i("postchoices", "null");
 		}
-		for (int i = 0; i < postChoicesList.size(); i++) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("post",postChoicesList.get(i).getJobName());
-			postList.add(map);
-		}
 		PostCbAdapter = new PostCheckBoxAdapter(postChoicesList, this);
 		availablePostListView.setAdapter(PostCbAdapter);
-		
 		availablePostListView.setOnItemClickListener(new OnItemClickListener() {
 			
 			@Override
@@ -94,7 +89,7 @@ public class PostSelectActivity extends Activity{
                 // ¸Ä±äCheckBoxµÄ×´Ì¬  
                 holder.checkBox.toggle();
                 if (holder.checkBox.isChecked()) {
-                	
+                	Log.i("on post  item click", jobListMap.get(currentChoiceTypeString).size()+"");
 					jobListMap.get(currentChoiceTypeString).get(position).setJobChoose(1);
 					
 				}

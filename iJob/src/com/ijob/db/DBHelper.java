@@ -9,6 +9,7 @@ import java.util.Map;
 import com.example.ijob.R;
 
 import android.R.bool;
+import android.R.string;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -283,7 +284,7 @@ public class DBHelper extends SQLiteOpenHelper {
 	//根据唯一职业ID获取职位信息
 	public Job_Item findJobItemById(int _id){
 		SQLiteDatabase db = getReadableDatabase(); 
-		Log.i("findJobItemById id = ", ""+_id);
+//		Log.i("findJobItemById id = ", ""+_id);
 		String selection = "_id = ?";
 		String[] selectionArgs = { Integer.toString(_id) };
 		Cursor cursor = db.query(JOB_TABLE, null, selection, selectionArgs, null, null, null);
@@ -326,7 +327,7 @@ public class DBHelper extends SQLiteOpenHelper {
 		if (this.getJobNum() < 1) {
 			return null;
 		}
-		Log.i("jobTypeID length = ", ""+jobTypeID.length);
+//		Log.i("jobTypeID length = ", ""+jobTypeID.length);
 		for (int i = 0; i < jobTypeID.length; i++) {
 			JobList.add(findJobItemById(jobTypeID[i]));
 		}
@@ -431,6 +432,48 @@ public class DBHelper extends SQLiteOpenHelper {
 		cursor.close();
 		db.close();
 		return focusJobList;
+	}
+	public int getJobIdByName(String name){
+		SQLiteDatabase db = getReadableDatabase(); 
+		int jobid = -1;
+		String selection = "job_name = ?";
+		String[] selectionArgs = { name };
+		Cursor cursor = db.query(JOB_TABLE, null, selection, selectionArgs, null, null, null);
+		if (cursor.moveToNext()) {
+			jobid = cursor.getInt(cursor.getColumnIndex("_id"));
+			cursor.close();
+			db.close();
+			return jobid;
+		}
+		cursor.close();
+		db.close();
+		return jobid;
+	}
+	public int getCityIdByName(String name){
+		SQLiteDatabase db = getReadableDatabase(); 
+		int cityid = -1;
+		String selection = "city_name = ?";
+		String[] selectionArgs = { name };
+		Cursor cursor = db.query(CITY_TABLE, null, selection, selectionArgs, null, null, null);
+		if (cursor.moveToNext()) {
+			cityid = cursor.getInt(cursor.getColumnIndex("_id"));
+			cursor.close();
+			db.close();
+			return cityid;
+		}
+		cursor.close();
+		db.close();
+		return cityid;
+	}
+	public int getMaxMessageId()
+	{
+		SQLiteDatabase db = getReadableDatabase(); //获取可写入的数据库对象。
+		Cursor cursor = db.query(LISTVIEW_TABLE, null, null, null, null, null, null);
+		if (cursor.moveToLast()) {
+			return cursor.getInt(cursor.getColumnIndex("_id"));
+		}
+		
+		return -1;
 	}
 	/* （非 Javadoc）
 	 * @see android.database.sqlite.SQLiteOpenHelper#onUpgrade(android.database.sqlite.SQLiteDatabase, int, int)

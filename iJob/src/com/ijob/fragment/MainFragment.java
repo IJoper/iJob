@@ -3,6 +3,7 @@ package com.ijob.fragment;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,17 +12,25 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.ijob.CreateJsonData;
 import com.example.ijob.JobDetails;
 import com.example.ijob.R;
+import com.ijob.db.City_Item;
 import com.ijob.db.DBHelper;
 import com.ijob.db.Infor_item;
+import com.ijob.db.Job_Item;
 import com.ijob.listview.XListView;
 import com.ijob.listview.XListView.IXListViewListener;
 
@@ -47,6 +56,8 @@ public class MainFragment extends Fragment implements IXListViewListener{
 	private int start = 111;
 	private SimpleAdapter xlistItemAdapter;
 	private List<Map<String, Object>> mDataList;
+	private List<City_Item> myFocuscityList;
+	private List<Job_Item> myFocusjobList;
 	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	private String URL = "http://1.iters.sinaapp.com/messages/getMessageById/";
 	private XListView mListView;
@@ -86,15 +97,14 @@ public class MainFragment extends Fragment implements IXListViewListener{
 		
 		myDbHelper = new DBHelper(view.getContext());
 		mDataList = myDbHelper.getMainListViewAllItem();
-		
-		
 		if (mDataList == null) {
 			mDataList = new ArrayList<Map<String, Object>>();
 		}
 		if (mDataList.size() > 0) {
 			start = Integer.parseInt(mDataList.get(0).get("id").toString())+1;
 		}
-		Log.i("start", ""+start);
+		Log.i("DB size", ""+mDataList.size());
+//		Log.i("start", ""+start);
 		
 		mListView.setPullLoadEnable(true);
 		
@@ -113,7 +123,7 @@ public class MainFragment extends Fragment implements IXListViewListener{
 				// TODO 自动生成的方法存根
 				String job_id;
 				job_id = mDataList.get(position-1).get("id").toString();
-				Log.i("job index", job_id+" "+position);
+//				Log.i("job index", job_id+" "+position);
 				Bundle bundle = new Bundle();
 				bundle.putString("job_id", job_id);
 				Intent intent = new Intent(getActivity(), JobDetails.class);
@@ -138,6 +148,7 @@ public class MainFragment extends Fragment implements IXListViewListener{
 				if (inputString.contains("，")) {
 					locationString = inputString.substring(0, inputString.indexOf("，"));
 					jobtypeString = inputString.substring(inputString.indexOf("，")+1, inputString.length());
+					
 //					Toast.makeText(v.getContext(), "l="+locationString+" j="+jobtypeString, Toast.LENGTH_SHORT).show();
 				}else {
 					Toast.makeText(v.getContext(), "正确输入格式：地区，职位", Toast.LENGTH_SHORT).show();
@@ -200,12 +211,27 @@ public class MainFragment extends Fragment implements IXListViewListener{
 		}, 1000);
 	}
 	public String HTTPGetInfo() {
-		String uri = URL + start + ".json";
+		myFocuscityList = myDbHelper.getFocusCityList();
+		myFocusjobList = myDbHelper.getFocusJobList();
+		String jobidjsonString = new CreateJsonData().CreateJobJsonByList(myFocusjobList);
+		String citynamejsonString = new CreateJsonData().CreateCityJsonByList(myFocuscityList);
+		
+		String uri = "http://iters.sinaapp.com/messages/searchMessageByLocationAndJobType.json";
 		String result = "";
-		HttpGet httpGet = new HttpGet(uri);// 将参数在地址中传递
-//		Log.i("URL = ", uri);
+		HttpPost httpPost = new HttpPost(uri);// 将参数在地址中传递
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("jid" ,jobidjsonString));
+		params.add(new BasicNameValuePair("location", citynamejsonString));
+		Log.i("jobid", jobidjsonString);
+		Log.i("cityname", citynamejsonString);
 		try {
-			HttpResponse response = new DefaultHttpClient().execute(httpGet);
+			httpPost.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+		} catch (UnsupportedEncodingException e1) {
+			// TODO 自动生成的 catch 块
+			e1.printStackTrace();
+		}
+		try {
+			HttpResponse response = new DefaultHttpClient().execute(httpPost);
 //			Log.i("response state = ", ""+ response.getStatusLine().getStatusCode());
 			if (response.getStatusLine().getStatusCode() == 200) {
 				StringBuffer buffer = new StringBuffer();
@@ -224,7 +250,7 @@ public class MainFragment extends Fragment implements IXListViewListener{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Log.i("result", result);
+//		Log.i("result", result);
 		return result;
 	}
 
@@ -234,7 +260,7 @@ public class MainFragment extends Fragment implements IXListViewListener{
 		public void run() {
 			// TODO Auto-generated method stub
 			String httpresponse = new String();
-			for (int i = 0; i < 10; i++) {
+//			for (int i = 0; i < 10; i++) {
 				httpresponse = HTTPGetInfo();
 				try {
 					JSONparser(httpresponse);
@@ -243,7 +269,7 @@ public class MainFragment extends Fragment implements IXListViewListener{
 					e.printStackTrace();
 				}
 				
-			}
+//			}
 		}
 
 		
@@ -279,7 +305,6 @@ public class MainFragment extends Fragment implements IXListViewListener{
 				myDbHelper.addMainListViewByItem(new Infor_item(Integer.parseInt(jsonObject.getString("id")), jsonObject.getString("message_title"),
 						jsonObject.getString("company"), string, jsonObject.getString("location"),"5000-8000", "2014-04-02", "2014-04-06"));
 //				Log.i("2_mdatalistlength", ""+mDataList.size());
-				start ++;
 			}
 		}
 	}

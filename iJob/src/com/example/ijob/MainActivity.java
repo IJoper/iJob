@@ -2,6 +2,8 @@ package com.example.ijob;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SearchView;
 
 import com.ijob.fragment.MainFragment;
 import com.ijob.fragment.MenuFragment;
@@ -17,14 +20,7 @@ import com.ijob.messagealarm.BootBroadcastReceiver;
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.app.SlidingActivity;
 
-/**
- * 
- * @author <a href="mailto:kris@krislq.com">Kris.lee</a>
- * @since Mar 12, 2013
- * @version 1.0.0
- */
 public class MainActivity extends SlidingActivity {
-	private ActionBar actionBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,6 +29,7 @@ public class MainActivity extends SlidingActivity {
 //        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.frame_content);
 //        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.title);
+        ActionBar actionBar = this.getActionBar();
         
         IntentFilter filter = new IntentFilter(Intent.ACTION_TIME_TICK);
         BootBroadcastReceiver receiver = new BootBroadcastReceiver();
@@ -55,7 +52,7 @@ public class MainActivity extends SlidingActivity {
         sm.setBehindOffset(150);
         sm.setFadeDegree(0.35f);
         
-        //设置slding menu的几种手势模式
+        //设置slding menu的几种手势模式 
         //TOUCHMODE_FULLSCREEN 全屏模式，在content页面中，滑动，可以打开sliding menu
         //TOUCHMODE_MARGIN 边缘模式，在content页面中，如果想打开slding ,你需要在屏幕边缘滑动才可以打开slding menu
         //TOUCHMODE_NONE 自然是不能通过手势打开啦
@@ -69,14 +66,15 @@ public class MainActivity extends SlidingActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_main, menu);
-//    	MenuItem search = menu.add(0, 0, 0, );
-//    	MenuItem add = menu.add(0, 0, 0, );
-//    	
-//    	search.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-//    	add.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        getMenuInflater().inflate(R.menu.search, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView = (SearchView)menu.findItem(R.id.menu_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setQueryHint(getResources().getString(R.string.search_hint));
         return true;
-    }
+    } 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -85,6 +83,9 @@ public class MainActivity extends SlidingActivity {
             toggle();
 //          getSlidingMenu().showMenu();// show menu
 //          getSlidingMenu().showContent();//show content
+            
+        case R.id.menu_search:
+        	
             return true;
         }
         return super.onOptionsItemSelected(item);

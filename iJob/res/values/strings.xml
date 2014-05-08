@@ -18,6 +18,7 @@
     <string name="inputhint">地区，职位</string>
     <string name="menu_settings">设置</string>
     <string name="search_hint">地区，职位</string>
+    <string name="search_title">Search</string>
     <string name="submit">保存</string>
     <string name="availableCity"></string>
     <string name="title_activity_city_select">CitySelectActivity</string>

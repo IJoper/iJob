@@ -34,6 +34,7 @@ public class MyCollection extends Activity{
 	private	DBHelper myDbHelper;
 	private SimpleAdapter myAdapter;
 	private List<Map<String, Object>> DataList;
+	
 	private int myid;
 	private int delete_position;
 
@@ -128,7 +129,6 @@ public class MyCollection extends Activity{
 			@Override
 			public void onClick(View v) {
 				// TODO 自动生成的方法存根
-				myDbHelper = new DBHelper(v.getContext());
 				myDbHelper.deleteCollectionListViewTable();
 				DataList.removeAll(DataList);
 				myAdapter.notifyDataSetChanged();
