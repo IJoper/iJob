@@ -1,20 +1,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+   
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView1"
+    <ListView
+        android:id="@+id/server_listView1"
+         android:layout_marginTop="15sp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginRight="15sp"
+        android:layout_marginBottom="5dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="HelpServer" />
-
-    <TextView
-        android:id="@+id/textView2"
+        android:divider="#8C8C8C" 
+        android:dividerHeight="2dp">
+    </ListView>
+	 <View
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="HelpServer Description" />
-
+        android:layout_height="2dp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginRight="15sp"
+        android:background="@android:color/darker_gray" />
 </LinearLayout>

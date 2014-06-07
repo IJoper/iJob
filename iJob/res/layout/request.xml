@@ -7,24 +7,27 @@
         android:id="@+id/textView1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:textSize="30dp"
         android:gravity="center"
-        android:text="You FeeBack" />
+        android:text="问题反馈" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/request_editText1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_height="200dp"
+        android:scrollbars="vertical"
+        android:gravity="left"
+        android:hint="在此输入文字"
         android:ems="10" >
 
         <requestFocus />
     </EditText>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/request_button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Submit" />
+        android:text="提交" />
 
 </LinearLayout>

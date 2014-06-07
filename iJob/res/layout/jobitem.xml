@@ -7,6 +7,7 @@
         android:id="@+id/jobitem_jobid"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:textSize="25dp"
         android:text="TextView" />
 
     <TextView
@@ -25,12 +26,16 @@
         android:id="@+id/jobitem_job_responsibilities"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+		android:singleLine="false"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/jobitem_job_requirements"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+		android:singleLine="false"
         android:text="TextView" />
 
 </LinearLayout>

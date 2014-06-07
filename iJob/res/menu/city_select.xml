@@ -1,11 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.ijob.CitySelectActivity" >
+    xmlns:tools="http://schemas.android.com/tools" >
 
-    <item
-        android:id="@+id/action_settings"
+     <item
+        android:id="@+id/saveCityChoice"
+        android:icon="@drawable/save"
         android:orderInCategory="100"
-        android:showAsAction="never"
+        android:showAsAction="ifRoom|withText"
         android:title="@string/action_settings"/>
+
 
 </menu>

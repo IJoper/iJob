@@ -15,9 +15,9 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+         <item name="android:actionBarStyle">@style/my_actionbar_style</item> 
     </style>
-
-    <style name="myTheme" parent="android:Theme">
+     <style name="myTheme" parent="android:Theme">
         <item name="android:windowContentOverlay">@drawable/color</item>
         <item name="android:windowTitleSize">40dp</item>
         <item name="android:windowTitleBackgroundStyle">@drawable/shadow</item>
@@ -26,8 +26,12 @@
     <style name="textViewBg">
         <item name="android:background">@drawable/rectangle</item>
     </style>
-    
-    <style name="CustomCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+	 <style name="my_actionbar_style" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">#647b97</item>
+    </style>
+   <style name="CustomCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
 	<item name="android:button">@drawable/checkbox_style</item>
 	</style>
+	
+    
 </resources>

@@ -1,44 +1,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+   
+    android:background="#EEE9BF"
     android:orientation="vertical" >
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="40dp"
-        android:background="#007fff" >
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/personal_collection_cleanall"
-            android:layout_toRightOf="@+id/personal_collection_back"
-            android:gravity="center"
-            android:text="My Collection" />
-
-        <Button
-            android:id="@+id/personal_collection_cleanall"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="clean all" />
-
-        <ImageView
-            android:id="@+id/personal_collection_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/back" />
-
-    </RelativeLayout>
 
     <ListView
         android:id="@+id/personal_collection_listview1"
         android:layout_width="match_parent"
+         android:layout_margin="15sp"
         android:layout_height="wrap_content" >
     </ListView>
 

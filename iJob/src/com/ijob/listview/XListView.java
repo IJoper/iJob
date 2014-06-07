@@ -1,6 +1,5 @@
 package com.ijob.listview;
 
-
 import com.example.ijob.R;
 
 import android.content.Context;

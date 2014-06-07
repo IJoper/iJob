@@ -1,63 +1,39 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:gravity="center_horizontal|left"
-    android:orientation="vertical" >
+    android:layout_height="wrap_content"
+    android:scrollbars="vertical" >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#007fff" >
-        
-        <ImageView
-        android:id="@+id/jobdetails_back"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:src="@drawable/back" />
-
-    <ImageView
-        android:id="@+id/jobdetails_collect"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:src="@drawable/add1" />
-
-    <Button
-        android:id="@+id/jobdetails_submit"
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignBottom="@+id/jobdetails_back"
-        android:layout_toLeftOf="@+id/jobdetails_collect"
-        android:layout_toRightOf="@+id/jobdetails_back"
-        android:text="Submit My Profile" />
-    </RelativeLayout>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5sp"
+        android:layout_marginLeft="15sp"
+        android:layout_marginRight="15sp"
+        android:layout_marginTop="15sp"
+        android:gravity="center_horizontal|left"
+        android:orientation="vertical" >
 
         <TextView
             android:id="@+id/jobdetails_message_title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="#####" />
+            android:textColor="#6A5ACD" />
 
         <TextView
             android:id="@+id/jobdetails_company"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="#####" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/jobdetails_location"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="#####" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/jobdetails_details"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

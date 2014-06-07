@@ -3,40 +3,34 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
-    <com.ijob.preference.MenuPreference
+    <Preference
 	    android:key="a"
         android:title="@string/menu_mainscene"
-        app:icon="@drawable/home1"
+        android:icon="@drawable/home"
 	    />
-
-    <com.ijob.preference.MenuPreference
+    <Preference android:icon="@drawable/personal2" 
         android:key="b"
-        android:title="@string/menu_personal"
-        app:icon="@drawable/personal1"
-        />
+        
+        android:title="@string/menu_personal" />
     
-    <com.ijob.preference.MenuPreference
+     
+     
+    <Preference
         android:key="c"
         android:title="@string/menu_server"
-        app:icon="@drawable/helpserver1"
+        android:icon="@drawable/helpserver"
         />
-    
-    <com.ijob.preference.MenuPreference
+
+    <Preference
         android:key="d"
-        android:title="@string/menu_version"
-        app:icon="@drawable/version1"
+        android:title="@string/menu_aboutus"
+        android:icon="@drawable/about"
         />
     
-    <com.ijob.preference.MenuPreference
+   <Preference
         android:key="e"
-        android:title="@string/menu_request"
-        app:icon="@drawable/request1"
-        />
-    
-    <com.ijob.preference.MenuPreference
-        android:key="f"
         android:title="@string/menu_exit"
-        app:icon="@drawable/exit1"
+        android:icon="@drawable/exit"
         />
 </PreferenceScreen>
    
